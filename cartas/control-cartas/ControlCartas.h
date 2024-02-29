@@ -8,6 +8,7 @@
 #include "../carta/Carta.h"
 #include "../utiles/Utiles.h"
 #include "../cola/Cola.h"
+#include "../pila/Pila.h"
 #include "../lista/ListaDoble.h"
 
 class ControlCartas {
@@ -16,13 +17,19 @@ public:
     Carta *cartasAleatorias[CANTIDAD];
     Cola cola1;
     Cola cola2;
-    ListaDoble *lista1;
-    ListaDoble *lista2;
-    ListaDoble *lista3;
-    ListaDoble *lista4;
-    ListaDoble *lista5;
-    ListaDoble *lista6;
-    ListaDoble *lista7;
+
+    Pila pila1;
+    Pila pila2;
+    Pila pila3;
+    Pila pila4;
+
+    ListaDoble lista1;
+    ListaDoble lista2;
+    ListaDoble lista3;
+    ListaDoble lista4;
+    ListaDoble lista5;
+    ListaDoble lista6;
+    ListaDoble lista7;
 
     void generarCartas();
 
@@ -31,6 +38,12 @@ public:
     void addCardsToCola();
 
     void addCartasToListas();
+
+    void printListas();
+
+    void printColas();
+
+    void printPilas();
 
 };
 

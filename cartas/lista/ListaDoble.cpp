@@ -10,7 +10,8 @@
  * @param card
  */
 void ListaDoble::addFinal(Carta *&card) {
-    Carta *nuevo = card;
+    Carta *nuevo = new Carta(card->color, card->simbolo, card->valorString, card->valor, card->id, card->bolteada);
+    //Carta *nuevo = card;
     if (isEmpity()) {
         initial = nuevo;
         end = nuevo;
@@ -26,7 +27,7 @@ void ListaDoble::addFinal(Carta *&card) {
         nuevo->anterior = temp;
         end = nuevo;
         //actualizamos el siguiente del nuevo.
-        end->siguiente= nullptr;
+        end->siguiente = nullptr;
         size++;
     }
 }
@@ -77,7 +78,7 @@ bool ListaDoble::isEmpity() {
 void ListaDoble::printList() {
     Carta *temp = initial;
     int i = 0;
-    printf("size %d\n",size);
+    printf("size %d\n", size);
     while (i < size) {
         std::cout << "Carta: " + temp->getPrint() << std::endl;
         temp = temp->siguiente;

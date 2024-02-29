@@ -10,6 +10,7 @@
  * Genera todas las 52 cartas
  */
 void ControlCartas::generarCartas() {
+
     int valor = 1;
     std::string valorString = "";
 
@@ -86,7 +87,12 @@ void ControlCartas::generarCartasAleatorias(Utiles utiles) {
     utiles.setNumbersRandom();
     printf("cartas aleatorias\n");
     for (int i = 0; i < CANTIDAD; ++i) {
-        cartasAleatorias[i] = cartas[utiles.numbersRandom[i]];
+        cartasAleatorias[i] = new Carta(cartas[utiles.numbersRandom[i]]->color,
+                                        cartas[utiles.numbersRandom[i]]->simbolo,
+                                        cartas[utiles.numbersRandom[i]]->valorString,
+                                        cartas[utiles.numbersRandom[i]]->valor,
+                                        cartas[utiles.numbersRandom[i]]->id,
+                                        cartas[utiles.numbersRandom[i]]->bolteada);
         std::cout << (i + 1) << " " << cartasAleatorias[i]->toString() << std::endl;
     }
 }
@@ -103,44 +109,51 @@ void ControlCartas::addCardsToCola() {
 
 void ControlCartas::addCartasToListas() {
     printf("agregando a la lista\n");
-    lista1->addFinal(cartasAleatorias[24]);
+    lista1.addFinal(*&cartasAleatorias[24]);
 
-    lista2->addFinal(cartasAleatorias[25]);
-    lista2->addFinal(cartasAleatorias[26]);
+    lista2.addFinal(cartasAleatorias[25]);
+    lista2.addFinal(cartasAleatorias[26]);
 
-    lista3->addFinal(cartasAleatorias[27]);
-    lista3->addFinal(cartasAleatorias[28]);
-    lista3->addFinal(cartasAleatorias[29]);
+    lista3.addFinal(cartasAleatorias[27]);
+    lista3.addFinal(cartasAleatorias[28]);
+    lista3.addFinal(cartasAleatorias[29]);
 
-    lista4->addFinal(cartasAleatorias[30]);
-    lista4->addFinal(cartasAleatorias[31]);
-    lista4->addFinal(cartasAleatorias[32]);
-    lista4->addFinal(cartasAleatorias[33]);
+    lista4.addFinal(cartasAleatorias[30]);
+    lista4.addFinal(cartasAleatorias[31]);
+    lista4.addFinal(cartasAleatorias[32]);
+    lista4.addFinal(cartasAleatorias[33]);
 
-    lista5->addFinal(cartasAleatorias[34]);
-    lista5->addFinal(cartasAleatorias[35]);
-    lista5->addFinal(cartasAleatorias[36]);
-    lista5->addFinal(cartasAleatorias[37]);
-    lista5->addFinal(cartasAleatorias[38]);
+    lista5.addFinal(cartasAleatorias[34]);
+    lista5.addFinal(cartasAleatorias[35]);
+    lista5.addFinal(cartasAleatorias[36]);
+    lista5.addFinal(cartasAleatorias[37]);
+    lista5.addFinal(cartasAleatorias[38]);
 
-    lista6->addFinal(cartasAleatorias[39]);
-    lista6->addFinal(cartasAleatorias[40]);
-    lista6->addFinal(cartasAleatorias[41]);
-    lista6->addFinal(cartasAleatorias[42]);
-    lista6->addFinal(cartasAleatorias[43]);
-    lista6->addFinal(cartasAleatorias[44]);
+    lista6.addFinal(cartasAleatorias[39]);
+    lista6.addFinal(cartasAleatorias[40]);
+    lista6.addFinal(cartasAleatorias[41]);
+    lista6.addFinal(cartasAleatorias[42]);
+    lista6.addFinal(cartasAleatorias[43]);
+    lista6.addFinal(cartasAleatorias[44]);
 
-    lista7->addFinal(cartasAleatorias[45]);
-    lista7->addFinal(cartasAleatorias[46]);
-    lista7->addFinal(cartasAleatorias[47]);
-    lista7->addFinal(cartasAleatorias[48]);
-    lista7->addFinal(cartasAleatorias[49]);
-    lista7->addFinal(cartasAleatorias[50]);
-    lista7->addFinal(cartasAleatorias[51]);
+    lista7.addFinal(cartasAleatorias[45]);
+    lista7.addFinal(cartasAleatorias[46]);
+    lista7.addFinal(cartasAleatorias[47]);
+    lista7.addFinal(cartasAleatorias[48]);
+    lista7.addFinal(cartasAleatorias[49]);
+    lista7.addFinal(cartasAleatorias[50]);
+    lista7.addFinal(cartasAleatorias[51]);
 
 
     //lista1.printList();
 }
 
+void ControlCartas::printColas() {
 
+}
 
+void ControlCartas::printListas() {
+
+}
+
+void ControlCartas::printPilas() {}

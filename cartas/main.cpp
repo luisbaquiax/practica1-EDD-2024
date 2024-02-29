@@ -17,20 +17,18 @@ int main() {
     c.generarCartasAleatorias(utiles);
     c.addCardsToCola();
     c.addCartasToListas();
-    c.lista1->printList();
+    c.lista1.printList();
     printf("\n");
-
-    c.lista2->printList();
+    c.lista2.printList();
     printf("\n");
-
-    c.lista3->printList();
+    c.lista3.printList();
     printf("\n");
-    c.lista4->printList();
+    c.lista4.printList();
     printf("\n");
-    c.lista5->printList();
+    c.lista5.printList();
     printf("\n");
-    c.lista6->printList();
+    c.lista6.printList();
     printf("\n");
-    c.lista7->printList();
+    c.lista7.printList();
     return 0;
 }

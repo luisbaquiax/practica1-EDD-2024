@@ -6,7 +6,8 @@
 #include "../carta/Carta.h"
 
 void Cola::push(Carta *&carta) {
-    Carta *nuevo = carta;
+    Carta *nuevo = new Carta(carta->color, carta->simbolo, carta->valorString, carta->valor, carta->id, carta->bolteada);
+    //Carta *nuevo = carta;
     if (isEmpity()) {
         first = nuevo;
         end = nuevo;
