@@ -15,7 +15,7 @@ private:
 public:
     Pila() : tope(nullptr) {};
 
-    void push(Carta *carta);
+    void push(Carta *&carta);
 
     Carta *pop();
 

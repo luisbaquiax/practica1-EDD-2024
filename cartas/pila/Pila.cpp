@@ -6,8 +6,10 @@
 #include "Pila.h"
 #include "../carta/Carta.h"
 
-void Pila::push(Carta *carta) {
-    Carta *nuevo =carta;
+void Pila::push(Carta *&carta) {
+    Carta *nuevo = new Carta(carta->color, carta->simbolo, carta->valorString, carta->valor, carta->id,
+                             carta->bolteada);
+    //Carta *nuevo = carta;
     nuevo->siguiente = tope;
     tope = nuevo;
 }

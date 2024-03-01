@@ -6,7 +6,8 @@
 #include "../carta/Carta.h"
 
 void Cola::push(Carta *&carta) {
-    Carta *nuevo = new Carta(carta->color, carta->simbolo, carta->valorString, carta->valor, carta->id, carta->bolteada);
+    Carta *nuevo = new Carta(carta->color, carta->simbolo, carta->valorString, carta->valor, carta->id,
+                             carta->bolteada);
     //Carta *nuevo = carta;
     if (isEmpity()) {
         first = nuevo;
@@ -14,6 +15,8 @@ void Cola::push(Carta *&carta) {
     } else {
         end->siguiente = nuevo;
         end = nuevo;
+        //nueva linea
+        end->siguiente = nullptr;
     }
 }
 
@@ -35,6 +38,18 @@ void Cola::printData() {
     }
 }
 
+void Cola::vaciarCola() {
+    while (!isEmpity()) {
+        pop();
+    }
+    first = nullptr;
+    end = nullptr;
+}
+
 bool Cola::isEmpity() const {
     return first == nullptr;
+}
+
+Carta *Cola::getEnd() {
+    return end;
 }

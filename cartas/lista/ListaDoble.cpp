@@ -79,13 +79,13 @@ void ListaDoble::printList() {
     Carta *temp = initial;
     int i = 0;
     printf("size %d\n", size);
-    while (i < size) {
+    /*while (i < size) {
         std::cout << "Carta: " + temp->getPrint() << std::endl;
         temp = temp->siguiente;
         i++;
-    }
-    /*while (temp != nullptr) {
+    }*/
+    while (temp != nullptr) {
         std::cout << "Carta: " + temp->toString() << std::endl;
         temp = temp->siguiente;
-    }*/
+    }
 }

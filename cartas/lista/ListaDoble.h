@@ -8,11 +8,10 @@
 #include "../carta/Carta.h"
 
 class ListaDoble {
-
-private:
+public:
     Carta *initial;
     Carta *end;
-public:
+
     ListaDoble() : size(0), initial(nullptr), end(nullptr) {}
 
     int size;

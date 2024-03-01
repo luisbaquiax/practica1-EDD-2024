@@ -16,4 +16,6 @@ add_executable(cartas main.cpp
         utiles/Utiles.h
         lista/ListaDoble.cpp
         lista/ListaDoble.h
+        game/Game.cpp
+        game/Game.h
 )

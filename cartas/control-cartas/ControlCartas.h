@@ -10,6 +10,7 @@
 #include "../cola/Cola.h"
 #include "../pila/Pila.h"
 #include "../lista/ListaDoble.h"
+#include <string>
 
 class ControlCartas {
 public:
@@ -18,18 +19,12 @@ public:
     Cola cola1;
     Cola cola2;
 
-    Pila pila1;
-    Pila pila2;
-    Pila pila3;
-    Pila pila4;
+    Pila pilas[4];
 
-    ListaDoble lista1;
-    ListaDoble lista2;
-    ListaDoble lista3;
-    ListaDoble lista4;
-    ListaDoble lista5;
-    ListaDoble lista6;
-    ListaDoble lista7;
+
+    ListaDoble listas[7];
+
+    std::string tablero[FILAS][COLUMNAS];
 
     void generarCartas();
 
@@ -39,11 +34,15 @@ public:
 
     void addCartasToListas();
 
-    void printListas();
+    void llenarTablero();
 
-    void printColas();
+    void printListas(std::string tablero[FILAS][COLUMNAS], int columna, ListaDoble lista);
 
-    void printPilas();
+    void printColas(Cola cola);
+
+    void printPilas(Pila pila);
+
+    void printTablero();
 
 };
 

@@ -4,7 +4,7 @@
 
 #include <stdlib.h>
 #include "../control-cartas/ControlCartas.h"
-
+#include <time.h>
 /**
  * Genera número aleatorio entre lower y upper inluyendo a upper
  * @param lower
@@ -16,7 +16,7 @@ int Utiles::numberRandom(int lower, int upper) {
     return num;
 }
 
-bool Utiles::containNumber(int number) {
+bool Utiles::containNumber(int number, int numbersRandom[CANTIDAD]) {
     for (int i = 0; i < CANTIDAD; ++i) {
         if (numbersRandom[i] == number) {
             return true;
@@ -27,9 +27,12 @@ bool Utiles::containNumber(int number) {
 
 void Utiles::setNumbersRandom() {
     for (int i = 0; i < CANTIDAD; ++i) {
-        int random = numberRandom(1, CANTIDAD);
-        while (!containNumber(numbersRandom[i])) {
-            random = numberRandom(1, CANTIDAD);
+        numbersRandom[i] = -1;
+    }
+    for (int i = 0; i < CANTIDAD; ++i) {
+        int random = numberRandom(0, CANTIDAD - 1);
+        while (containNumber(random, numbersRandom)) {
+            random = numberRandom(0, CANTIDAD - 1);
         }
         numbersRandom[i] = random;
     }

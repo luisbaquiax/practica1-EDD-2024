@@ -22,6 +22,9 @@ public:
     bool isEmpity() const;
 
     void printData();
+
+    Carta *getEnd();
+    void vaciarCola();
 };
 
 

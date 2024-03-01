@@ -13,11 +13,13 @@ const std::string TREBOL_NEGRO = "E3";
 const std::string ESPADA_NEGRO = "!!";
 const std::string ROJO = "R";
 const std::string NEGRO = "N";
-const std::string AZ_CORAZON="<3";
-const std::string AZ_DIAM="<>";
-const std::string AZ_TREBOL="E3";
-const std::string AZ_ESPADA="!!";
+const std::string AZ_CORAZON = "<3";
+const std::string AZ_DIAM = "<>";
+const std::string AZ_TREBOL = "E3";
+const std::string AZ_ESPADA = "!!";
 const std::string SIM_BOLTEADA = "XXXX";
+const std::string ESPACIO = "     ";
+const std::string NADA = "*****";
 
 
 class Carta {
@@ -31,6 +33,7 @@ public:
     int valor;
     int id;
     bool bolteada;
+
     Carta(const std::string &color,
           const std::string &simbolo,
           const std::string &valorString,
@@ -45,7 +48,9 @@ public:
             bolteada(bolteada),
             siguiente(nullptr),
             anterior(nullptr) {};
+
     std::string getPrint();
+
     std::string toString();
 };
 

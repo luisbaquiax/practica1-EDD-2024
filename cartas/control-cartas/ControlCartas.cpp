@@ -5,6 +5,7 @@
 #include "ControlCartas.h"
 #include "iostream"
 #include <string>
+#include <stdlib.h>
 
 /**
  * Genera todas las 52 cartas
@@ -100,60 +101,118 @@ void ControlCartas::generarCartasAleatorias(Utiles utiles) {
 void ControlCartas::addCardsToCola() {
     //se agrega las 24 cartas aleatorias en la cola 1
     for (int i = 0; i < N_CARDS_COLA; i++) {
-        cola1.push(cartasAleatorias[i]);
+        cola1.push(*&cartasAleatorias[i]);
     }
-
-    printf("datos cola\n");
-    cola1.printData();
+    //printf("datos cola\n");
+    //cola1.printData();
 }
 
 void ControlCartas::addCartasToListas() {
     printf("agregando a la lista\n");
-    lista1.addFinal(*&cartasAleatorias[24]);
+    listas[0].addFinal(*&cartasAleatorias[24]);
 
-    lista2.addFinal(cartasAleatorias[25]);
-    lista2.addFinal(cartasAleatorias[26]);
+    listas[1].addFinal(*&cartasAleatorias[25]);
+    listas[1].addFinal(*&cartasAleatorias[26]);
 
-    lista3.addFinal(cartasAleatorias[27]);
-    lista3.addFinal(cartasAleatorias[28]);
-    lista3.addFinal(cartasAleatorias[29]);
+    listas[2].addFinal(*&cartasAleatorias[27]);
+    listas[2].addFinal(*&cartasAleatorias[28]);
+    listas[2].addFinal(*&cartasAleatorias[29]);
 
-    lista4.addFinal(cartasAleatorias[30]);
-    lista4.addFinal(cartasAleatorias[31]);
-    lista4.addFinal(cartasAleatorias[32]);
-    lista4.addFinal(cartasAleatorias[33]);
+    listas[3].addFinal(*&cartasAleatorias[30]);
+    listas[3].addFinal(*&cartasAleatorias[31]);
+    listas[3].addFinal(*&cartasAleatorias[32]);
+    listas[3].addFinal(*&cartasAleatorias[33]);
 
-    lista5.addFinal(cartasAleatorias[34]);
-    lista5.addFinal(cartasAleatorias[35]);
-    lista5.addFinal(cartasAleatorias[36]);
-    lista5.addFinal(cartasAleatorias[37]);
-    lista5.addFinal(cartasAleatorias[38]);
+    listas[4].addFinal(*&cartasAleatorias[34]);
+    listas[4].addFinal(*&cartasAleatorias[35]);
+    listas[4].addFinal(*&cartasAleatorias[36]);
+    listas[4].addFinal(*&cartasAleatorias[37]);
+    listas[4].addFinal(*&cartasAleatorias[38]);
 
-    lista6.addFinal(cartasAleatorias[39]);
-    lista6.addFinal(cartasAleatorias[40]);
-    lista6.addFinal(cartasAleatorias[41]);
-    lista6.addFinal(cartasAleatorias[42]);
-    lista6.addFinal(cartasAleatorias[43]);
-    lista6.addFinal(cartasAleatorias[44]);
+    listas[5].addFinal(*&cartasAleatorias[39]);
+    listas[5].addFinal(*&cartasAleatorias[40]);
+    listas[5].addFinal(*&cartasAleatorias[41]);
+    listas[5].addFinal(*&cartasAleatorias[42]);
+    listas[5].addFinal(*&cartasAleatorias[43]);
 
-    lista7.addFinal(cartasAleatorias[45]);
-    lista7.addFinal(cartasAleatorias[46]);
-    lista7.addFinal(cartasAleatorias[47]);
-    lista7.addFinal(cartasAleatorias[48]);
-    lista7.addFinal(cartasAleatorias[49]);
-    lista7.addFinal(cartasAleatorias[50]);
-    lista7.addFinal(cartasAleatorias[51]);
+    listas[6].addFinal(*&cartasAleatorias[44]);
+    listas[6].addFinal(*&cartasAleatorias[45]);
+    listas[6].addFinal(*&cartasAleatorias[46]);
+    listas[6].addFinal(*&cartasAleatorias[47]);
+    listas[6].addFinal(*&cartasAleatorias[48]);
+    listas[6].addFinal(*&cartasAleatorias[49]);
+    listas[6].addFinal(*&cartasAleatorias[50]);
+    listas[6].addFinal(*&cartasAleatorias[51]);
 
 
     //lista1.printList();
 }
 
-void ControlCartas::printColas() {
+void ControlCartas::printColas(Cola cola) {
+    printf(">>>>>>>  Cartas a ver  >>>>>>> \n");
+    if (!cola2.isEmpity()) {
+        std::cout << SIM_BOLTEADA << ESPACIO << cola2.getEnd()->getPrint() << std::endl;
+    } else {
+        std::cout << SIM_BOLTEADA << ESPACIO << NADA << std::endl;
+    }
+    printf("\n");
+}
+
+void ControlCartas::printPilas(Pila pila) {
+    printf(">>>>>>>  AZ's  >>>>>>> \n");
+    std::cout << " " + AZ_CORAZON + " " + ESPACIO + "  " + AZ_DIAM + " " + ESPACIO + "  " + AZ_TREBOL + " " + ESPACIO +
+                 "  " + AZ_ESPADA << ESPACIO
+              << std::endl;
+    for (int i = 0; i < 4; ++i) {
+        if (!pilas[i].esVacia()) {
+            std::cout << pilas[i].getTope()->getPrint() << ESPACIO;
+        } else {
+            std::cout << NADA << ESPACIO;
+        }
+    }
+    printf("\n");
+}
+
+void ControlCartas::printListas(std::string tablero[FILAS][COLUMNAS], int columna, ListaDoble lista) {
+    int i = 0;
+    Carta *temp = lista.initial;
+    lista.end->bolteada = true;
+
+    while (temp != nullptr) {
+        if (!temp->bolteada) {
+            tablero[i][columna] = SIM_BOLTEADA;
+        } else {
+            tablero[i][columna] = temp->getPrint();
+        }
+        temp = temp->siguiente;
+        i++;
+    }
 
 }
 
-void ControlCartas::printListas() {
 
+void ControlCartas::llenarTablero() {
+    printf("llenadno tablero\n");
+    for (int i = 0; i < FILAS; ++i) {
+        for (int j = 0; j < COLUMNAS; ++j) {
+            tablero[i][j] = ESPACIO;
+        }
+    }
 }
 
-void ControlCartas::printPilas() {}
+void ControlCartas::printTablero() {
+    printf("Filas-Columnas\n ");
+    for (int i = 0; i < COLUMNAS; ++i) {
+        printf(" %d    ", (i));
+    }
+    printf("\n");
+    for (int i = 0; i < FILAS; ++i) {
+        for (int j = 0; j < COLUMNAS; ++j) {
+            if (j == 0 && tablero[i][6] != ESPACIO) {
+                printf("%d ", i);
+            }
+            printf("%s  ", tablero[i][j].c_str());
+        }
+        printf("\n");
+    }
+}

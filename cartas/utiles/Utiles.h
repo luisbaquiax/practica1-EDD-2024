@@ -6,6 +6,8 @@
 #define CARTAS_UTILES_H
 const int CANTIDAD = 52;
 const int N_CARDS_COLA = 24;
+const int FILAS = 13;
+const int COLUMNAS = 7;
 
 class Utiles {
 public:
@@ -15,7 +17,7 @@ public:
 
     int numberRandom(int lower, int upper);
 
-    bool containNumber(int number);
+    bool containNumber(int number, int nums[CANTIDAD]);
 };
 
 
