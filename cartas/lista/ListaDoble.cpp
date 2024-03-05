@@ -62,15 +62,20 @@ Carta *ListaDoble::quitEnd() {
             end = nullptr;
             size = 0;
         } else {
+            size--;
             tem = end;
             end = end->anterior;
+            //delete end->siguiente;
             end->siguiente = nullptr;
-            size--;
         }
     }
     return tem;
 }
 
+/**
+ * Retorna true si la lista está vacía, o false cuando tiene al menos un elemento.
+ * @return
+ */
 bool ListaDoble::isEmpity() {
     return initial == nullptr;
 }

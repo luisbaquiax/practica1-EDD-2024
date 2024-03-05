@@ -17,7 +17,7 @@ const std::string AZ_CORAZON = "<3";
 const std::string AZ_DIAM = "<>";
 const std::string AZ_TREBOL = "E3";
 const std::string AZ_ESPADA = "!!";
-const std::string SIM_BOLTEADA = "XXXX";
+const std::string SIM_BOLTEADA = "XXXXX";
 const std::string ESPACIO = "     ";
 const std::string NADA = "*****";
 

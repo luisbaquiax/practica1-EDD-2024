@@ -97,6 +97,12 @@ build CMakeFiles/cartas.dir/game/Game.cpp.obj: CXX_COMPILER__cartas_unscanned_De
   OBJECT_DIR = CMakeFiles\cartas.dir
   OBJECT_FILE_DIR = CMakeFiles\cartas.dir\game
 
+build CMakeFiles/cartas.dir/Movimiento/Movimiento.cpp.obj: CXX_COMPILER__cartas_unscanned_Debug C$:/Users/Usuario/Desktop/proyectos/practica1-EDD-2024/cartas/Movimiento/Movimiento.cpp || cmake_object_order_depends_target_cartas
+  DEP_FILE = CMakeFiles\cartas.dir\Movimiento\Movimiento.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\cartas.dir
+  OBJECT_FILE_DIR = CMakeFiles\cartas.dir\Movimiento
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target cartas
@@ -105,7 +111,7 @@ build CMakeFiles/cartas.dir/game/Game.cpp.obj: CXX_COMPILER__cartas_unscanned_De
 #############################################
 # Link the executable cartas.exe
 
-build cartas.exe: CXX_EXECUTABLE_LINKER__cartas_Debug CMakeFiles/cartas.dir/main.cpp.obj CMakeFiles/cartas.dir/carta/Carta.cpp.obj CMakeFiles/cartas.dir/cola/Cola.cpp.obj CMakeFiles/cartas.dir/pila/Pila.cpp.obj CMakeFiles/cartas.dir/control-cartas/ControlCartas.cpp.obj CMakeFiles/cartas.dir/utiles/Utiles.cpp.obj CMakeFiles/cartas.dir/lista/ListaDoble.cpp.obj CMakeFiles/cartas.dir/game/Game.cpp.obj
+build cartas.exe: CXX_EXECUTABLE_LINKER__cartas_Debug CMakeFiles/cartas.dir/main.cpp.obj CMakeFiles/cartas.dir/carta/Carta.cpp.obj CMakeFiles/cartas.dir/cola/Cola.cpp.obj CMakeFiles/cartas.dir/pila/Pila.cpp.obj CMakeFiles/cartas.dir/control-cartas/ControlCartas.cpp.obj CMakeFiles/cartas.dir/utiles/Utiles.cpp.obj CMakeFiles/cartas.dir/lista/ListaDoble.cpp.obj CMakeFiles/cartas.dir/game/Game.cpp.obj CMakeFiles/cartas.dir/Movimiento/Movimiento.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\cartas.dir

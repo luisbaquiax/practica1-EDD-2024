@@ -16,16 +16,8 @@ void Game::jugar() {
     //c.cola1.printData();
 
     c.addCartasToListas();
-
     c.llenarTablero();
-    c.printListas(c.tablero, 0, c.listas[0]);
-    c.printListas(c.tablero, 1, c.listas[1]);
-    c.printListas(c.tablero, 2, c.listas[2]);
-    c.printListas(c.tablero, 3, c.listas[3]);
-    c.printListas(c.tablero, 4, c.listas[4]);
-    c.printListas(c.tablero, 5, c.listas[5]);
-    c.printListas(c.tablero, 6, c.listas[6]);
-
+    c.printAllList();
     printGame();
 
 }
@@ -53,6 +45,7 @@ void Game::verCarta() {
                 };
                 c.cola2.vaciarCola();
             } else if (opcion == 2) {
+                //omitimos
             } else {
                 printf("Opcion invalida");
             }
@@ -67,13 +60,14 @@ void Game::printGame() {
     c.printColas(c.cola1);
 
     c.printPilas(c.pilas[0]);
-
+    c.llenarTablero();
+    c.printAllList();
     c.printTablero();
 }
 
 void Game::moverCarta() {
-    int columnaOrigen = 0;
-    int columnaDestino = 0;
+    int columnaOrigen;
+    int columnaDestino;
 
     printf("Seleccione columna origen y destino (ejemplo: 0 0):");
     scanf("%d %d", &columnaOrigen, &columnaDestino);
@@ -89,11 +83,28 @@ void Game::moverCarta() {
 }
 
 void Game::moveSelect(int origen, int destino) {
-    ListaDoble listOrigen = c.listas[origen];
-    ListaDoble listDestino = c.listas[destino];
-    if (listOrigen.getEnd()->color != listDestino.getEnd()->color) {
-        if (listOrigen.getEnd()->valor < listDestino.getEnd()->valor) {
-
+    if (c.listas[destino].isEmpity()) {
+        if (c.listas[origen].end->valor == 13) {
+            Carta *card = c.listas[origen].quitEnd();
+            card->bolteada = true;
+            c.listas[destino].addFinal(card);
+            if (c.listas[origen].end != nullptr) {
+                c.listas[origen].end->bolteada = true;
+            }
+            return;
+        }
+    }
+    if (c.listas[origen].end->color != c.listas[destino].end->color) {
+        if ((c.listas[origen].end->valor < c.listas[destino].end->valor) &&
+            (c.listas[destino].end->valor - c.listas[origen].end->valor == 1)) {
+            if (!c.listas[origen].isEmpity()) {
+                Carta *temp = c.listas[origen].quitEnd();
+                temp->bolteada = true;
+                c.listas[destino].addFinal(temp);
+                if (c.listas[origen].end != nullptr) {
+                    c.listas[origen].end->bolteada = true;
+                }
+            }
         } else {
             printf("No se puede mover la carta.\n");
         }
@@ -103,7 +114,80 @@ void Game::moveSelect(int origen, int destino) {
 }
 
 void Game::moveCardToAZs() {
+    int columna;
+    printf("Ingrese el numero de columna para mover la carta hacia las AZ's:");
+    scanf("%d", &columna);
+    moveCardSeletedToAZs(columna);
+}
 
+void Game::moveCardSeletedToAZs(int columna) {
+    if (!c.listas[columna].isEmpity()) {
+        Carta *ultimo = c.listas[columna].quitEnd();
+        Carta *card = new Carta(ultimo->color, ultimo->simbolo, ultimo->valorString, ultimo->valor, ultimo->id,
+                                ultimo->bolteada);
+        /*std::cout << "ultimo " + card->getPrint() << std::endl;
+        std::cout << "card " + card->getPrint() << std::endl;*/
+        c.listas[columna].printList();
+        if (card->valor == 1) {
+            if (card->simbolo == AZ_CORAZON) {
+                c.pilas[0].push(card);
+            } else if (card->simbolo == AZ_DIAM) {
+                c.pilas[1].push(card);
+            } else if (card->simbolo == AZ_TREBOL) {
+                c.pilas[2].push(card);
+            } else if (card->simbolo == AZ_ESPADA) {
+                c.pilas[3].push(card);
+            }
+        } else {
+            if (card->simbolo == CORAZON_ROJO) {
+                if (!c.pilas[0].esVacia()) {
+                    if (c.pilas[0].getTope()->valor < card->valor
+                        && (card->valor - c.pilas[0].getTope()->valor == 1)) {
+                        c.pilas[0].push(card);
+                    } else {
+                        printf("No se puede mover debido al orden ascendente de las cartas");
+                    }
+                }
+            } else if (card->simbolo == DIAMANT_ROJO) {
+                if (!c.pilas[1].esVacia()) {
+                    if (c.pilas[1].getTope()->valor < card->valor
+                        && (card->valor - c.pilas[1].getTope()->valor == 1)) {
+                        c.pilas[1].push(card);
+                    } else {
+                        printf("No se puede mover debido al orden ascendente de las cartas");
+                    }
+                }
+            } else if (card->simbolo == TREBOL_NEGRO) {
+                if (!c.pilas[2].esVacia()) {
+                    if (c.pilas[2].getTope()->valor < card->valor
+                        && (card->valor - c.pilas[2].getTope()->valor == 1)) {
+                        c.pilas[2].push(card);
+                    } else {
+                        printf("No se puede mover debido al orden ascendente de las cartas");
+                    }
+                }
+            } else if (card->simbolo == ESPADA_NEGRO) {
+                if (!c.pilas[3].esVacia()) {
+                    if (c.pilas[3].getTope()->valor < card->valor
+                        && (card->valor - c.pilas[3].getTope()->valor == 1)) {
+                        c.pilas[3].push(card);
+                    } else {
+                        printf("No se puede mover debido al orden ascendente de las cartas");
+                    }
+                }
+            }
+        }
+        if (c.listas[columna].end != nullptr) {
+            c.listas[columna].end->bolteada = true;
+        }
+    }
+}
+
+void Game::moveCardFromColaToList() {
+    int col;
+    printf("Elige la columna destino:");
+    scanf("%d", &col);
+    c.moveCardToList(col);
 }
 
 void Game::menu() {
@@ -114,8 +198,10 @@ void Game::menu() {
         printf("1. Ver carta\n");
         printf("2. Mover carta\n");
         printf("3. Mover cartas (de filas de cartas a AZ's)\n");
-        printf("4. Mover carta a la ilera de AZ's (de Cartas a AZ's)\n");
-        printf("5. Salir del juego\n");
+        printf("4. Mover carta a AZ's (lista a AZ's)\n");
+        printf("5. Mover de cola a AZ's (cola de cartas a AZ's)\n");
+        printf("6. Mover carta de la cola a lista de cartas (cola a listas)\n");
+        printf("7. Salir del juego\n");
         scanf("%d", &opcion);
         std::cout << "opcion " << opcion << std::endl;
 
@@ -128,10 +214,17 @@ void Game::menu() {
         } else if (opcion == 3) {
             printGame();
         } else if (opcion == 4) {
+            moveCardToAZs();
             printGame();
         } else if (opcion == 5) {
+            c.moveCardToAzWhitCola();
+            printGame();
+        } else if (opcion == 6) {
+            moveCardFromColaToList();
+            printGame();
+        } else if (opcion == 7) {
             std::exit(0);
         }
-    } while (opcion > 0 && opcion < 5);
+    } while (opcion > 0 && opcion < 8);
 
 }

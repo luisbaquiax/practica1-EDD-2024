@@ -24,6 +24,9 @@ public:
     void moveSelect(int origen, int destino);
 
     void moveCardToAZs();
+    void moveCardFromColaToList();
+    void moveCardSeletedToAZs(int columna);
+
 };
 
 

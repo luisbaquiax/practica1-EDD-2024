@@ -9,21 +9,24 @@
 #include <string>
 
 class Cola {
-private:
+public:
     Carta *first;
     Carta *end;
-public:
+
     Cola() : first(nullptr), end(nullptr) {};
 
     void push(Carta *&carta);
 
     Carta *pop();
 
+    Carta *popEnd();
+
     bool isEmpity() const;
 
     void printData();
 
     Carta *getEnd();
+
     void vaciarCola();
 };
 

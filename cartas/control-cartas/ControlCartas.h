@@ -36,13 +36,19 @@ public:
 
     void llenarTablero();
 
-    void printListas(std::string tablero[FILAS][COLUMNAS], int columna, ListaDoble lista);
+    void printListas(int columna, ListaDoble lista);
 
     void printColas(Cola cola);
 
     void printPilas(Pila pila);
 
     void printTablero();
+
+    void printAllList();
+
+    void moveCardToAzWhitCola();
+    void moveCardToList(int &columna);
+
 
 };
 

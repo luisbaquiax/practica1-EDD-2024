@@ -75,7 +75,7 @@ void ControlCartas::generarCartas() {
         if (cartas[i]->valor == 1) {
             cartas[i]->valorString = "A";
         }
-        std::cout << cartas[i]->toString() << std::endl;
+        //std::cout << cartas[i]->toString() << std::endl;
     }
 
 }
@@ -86,7 +86,7 @@ void ControlCartas::generarCartas() {
  */
 void ControlCartas::generarCartasAleatorias(Utiles utiles) {
     utiles.setNumbersRandom();
-    printf("cartas aleatorias\n");
+    //printf("cartas aleatorias\n");
     for (int i = 0; i < CANTIDAD; ++i) {
         cartasAleatorias[i] = new Carta(cartas[utiles.numbersRandom[i]]->color,
                                         cartas[utiles.numbersRandom[i]]->simbolo,
@@ -94,7 +94,7 @@ void ControlCartas::generarCartasAleatorias(Utiles utiles) {
                                         cartas[utiles.numbersRandom[i]]->valor,
                                         cartas[utiles.numbersRandom[i]]->id,
                                         cartas[utiles.numbersRandom[i]]->bolteada);
-        std::cout << (i + 1) << " " << cartasAleatorias[i]->toString() << std::endl;
+        //std::cout << (i + 1) << " " << cartasAleatorias[i]->toString() << std::endl;
     }
 }
 
@@ -109,6 +109,7 @@ void ControlCartas::addCardsToCola() {
 
 void ControlCartas::addCartasToListas() {
     printf("agregando a la lista\n");
+    //cartasAleatorias[24] = new Carta("R", AZ_CORAZON, "A", 1, 0, false);
     listas[0].addFinal(*&cartasAleatorias[24]);
 
     listas[1].addFinal(*&cartasAleatorias[25]);
@@ -134,8 +135,8 @@ void ControlCartas::addCartasToListas() {
     listas[5].addFinal(*&cartasAleatorias[41]);
     listas[5].addFinal(*&cartasAleatorias[42]);
     listas[5].addFinal(*&cartasAleatorias[43]);
+    listas[5].addFinal(*&cartasAleatorias[44]);
 
-    listas[6].addFinal(*&cartasAleatorias[44]);
     listas[6].addFinal(*&cartasAleatorias[45]);
     listas[6].addFinal(*&cartasAleatorias[46]);
     listas[6].addFinal(*&cartasAleatorias[47]);
@@ -148,14 +149,83 @@ void ControlCartas::addCartasToListas() {
     //lista1.printList();
 }
 
+void ControlCartas::moveCardToAzWhitCola() {
+    if (!cola1.isEmpity()) {
+        if (cola1.first->valor == 1) {
+            if (cola1.first->simbolo == CORAZON_ROJO) {
+                Carta *tem = cola1.pop();
+                pilas[0].push(tem);
+            } else if (cola1.first->simbolo == DIAMANT_ROJO) {
+                Carta *tem = cola1.pop();
+                pilas[1].push(tem);
+            } else if (cola1.first->simbolo == TREBOL_NEGRO) {
+                Carta *tem = cola1.pop();
+                pilas[2].push(tem);
+            } else if (cola1.first->simbolo == ESPADA_NEGRO) {
+                Carta *tem = cola1.pop();
+                pilas[3].push(tem);
+            }
+        } else {
+            if (cola1.first->simbolo == CORAZON_ROJO) {
+                if (!pilas[0].esVacia()) {
+                    Carta *tem = cola1.pop();
+                    pilas[0].push(tem);
+                }
+            } else if (cola1.first->simbolo == DIAMANT_ROJO) {
+                if (!pilas[1].esVacia()) {
+                    Carta *tem = cola1.pop();
+                    pilas[1].push(tem);
+                }
+            } else if (cola1.first->simbolo == TREBOL_NEGRO) {
+                if (!pilas[2].esVacia()) {
+                    Carta *tem = cola1.pop();
+                    pilas[2].push(tem);
+                }
+            } else if (cola1.first->simbolo == ESPADA_NEGRO) {
+                if (!pilas[3].esVacia()) {
+                    Carta *tem = cola1.pop();
+                    pilas[3].push(tem);
+                }
+            }
+        }
+    }
+}
+
+void ControlCartas::moveCardToList(int &columna) {
+    if (!cola1.isEmpity()) {
+        if (listas[columna].isEmpity()) {
+            if (cola1.first->valor == 13) {
+                Carta *card = cola1.pop();
+                card->bolteada = true;
+                listas[columna].addFinal(card);
+            }
+        } else {
+            if (listas[columna].end->valor > cola1.first->valor
+                && (listas[columna].end->valor - cola1.first->valor == 1)
+                && (listas[columna].end->color != cola1.first->color)) {
+                Carta *card = cola1.pop();
+                card->bolteada = true;
+                listas[columna].addFinal(card);
+            }
+        }
+    }
+}
+
+/**
+ *
+ * @param cola
+ */
 void ControlCartas::printColas(Cola cola) {
     printf(">>>>>>>  Cartas a ver  >>>>>>> \n");
     if (!cola2.isEmpity()) {
-        std::cout << SIM_BOLTEADA << ESPACIO << cola2.getEnd()->getPrint() << std::endl;
+        if (cola1.isEmpity()) {
+            std::cout << NADA << ESPACIO << SIM_BOLTEADA << std::endl;
+        } else {
+            std::cout << cola1.first->getPrint() << ESPACIO << SIM_BOLTEADA << std::endl;
+        }
     } else {
         std::cout << SIM_BOLTEADA << ESPACIO << NADA << std::endl;
     }
-    printf("\n");
 }
 
 void ControlCartas::printPilas(Pila pila) {
@@ -173,26 +243,39 @@ void ControlCartas::printPilas(Pila pila) {
     printf("\n");
 }
 
-void ControlCartas::printListas(std::string tablero[FILAS][COLUMNAS], int columna, ListaDoble lista) {
+void ControlCartas::printListas(int columna, ListaDoble lista) {
     int i = 0;
-    Carta *temp = lista.initial;
-    lista.end->bolteada = true;
-
-    while (temp != nullptr) {
-        if (!temp->bolteada) {
-            tablero[i][columna] = SIM_BOLTEADA;
-        } else {
-            tablero[i][columna] = temp->getPrint();
+    if (lista.isEmpity()) {
+        for (int j = 0; j < FILAS; ++j) {
+            tablero[j][columna] = ESPACIO;
         }
-        temp = temp->siguiente;
-        i++;
+    } else {
+        //veamos
+        lista.end->bolteada = true;
+        Carta *temp = lista.initial;
+        lista.end->bolteada = true;
+        while (temp != nullptr) {
+            if (!temp->bolteada) {
+                tablero[i][columna] = SIM_BOLTEADA;
+            } else {
+                tablero[i][columna] = temp->getPrint();
+            }
+            temp = temp->siguiente;
+            i++;
+        }
     }
 
 }
 
+void ControlCartas::printAllList() {
+    for (int i = 0; i < COLUMNAS; ++i) {
+        printListas(i, listas[i]);
+    }
+}
+
 
 void ControlCartas::llenarTablero() {
-    printf("llenadno tablero\n");
+    //printf("llenadno tablero\n");
     for (int i = 0; i < FILAS; ++i) {
         for (int j = 0; j < COLUMNAS; ++j) {
             tablero[i][j] = ESPACIO;
@@ -203,14 +286,13 @@ void ControlCartas::llenarTablero() {
 void ControlCartas::printTablero() {
     printf("Filas-Columnas\n ");
     for (int i = 0; i < COLUMNAS; ++i) {
-        printf(" %d    ", (i));
+        printf("   %d", (i));
+        printf("   ");
     }
     printf("\n");
     for (int i = 0; i < FILAS; ++i) {
+        printf("%d ", i);
         for (int j = 0; j < COLUMNAS; ++j) {
-            if (j == 0 && tablero[i][6] != ESPACIO) {
-                printf("%d ", i);
-            }
             printf("%s  ", tablero[i][j].c_str());
         }
         printf("\n");
