@@ -163,7 +163,7 @@ void Game::moveCardSeletedToAZs(int columna) {
                         && (card->valor - c.pilas[2].getTope()->valor == 1)) {
                         c.pilas[2].push(card);
                     } else {
-                        prigitntf("No se puede mover debido al orden ascendente de las cartas");
+                        printf("No se puede mover debido al orden ascendente de las cartas");
                     }
                 }
             } else if (card->simbolo == ESPADA_NEGRO) {
