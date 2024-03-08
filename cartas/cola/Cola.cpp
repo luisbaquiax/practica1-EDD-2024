@@ -15,7 +15,6 @@ void Cola::push(Carta *&carta) {
     } else {
         end->siguiente = nuevo;
         end = nuevo;
-        //nueva linea
         end->siguiente = nullptr;
     }
 }

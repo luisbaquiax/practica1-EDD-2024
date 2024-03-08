@@ -7,7 +7,10 @@
 
 
 class Movimiento {
-
+public:
+    int tipo;
+    int listaOrigen;
+    int listaDestino;
 };
 
 

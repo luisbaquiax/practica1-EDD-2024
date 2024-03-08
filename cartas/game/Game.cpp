@@ -190,17 +190,76 @@ void Game::moveCardFromColaToList() {
     c.moveCardToList(col);
 }
 
+void Game::moverCartas() {
+    int col;
+    int row;
+    int destino;
+    printf("Ingrese la fila desde donde se moveran las cartas: ");
+    scanf("%d", &row);
+    printf("Ingrese la columna origen y destino (Ej: 0 0): ");
+    scanf("%d %d", &col, &destino);
+    moverCartas(row, col, destino);
+}
+
+void Game::moverCartas(int fila, int columna, int destino) {
+    if (columna != destino) {
+        //validamos primero que la lista origen no esta vacia
+        if (!c.listas[columna].isEmpity()) {
+            if (c.listas[destino].isEmpity()) {
+                if (c.listas[columna].getByIndex(fila)->valor == 13) {
+                    //ejecutar movimiento
+                    playMoveCards(fila, columna, destino);
+                }
+            } else {
+                if (c.listas[destino].end->valor > c.listas[columna].getByIndex(fila)->valor
+                    && (c.listas[destino].end->valor - c.listas[columna].getByIndex(fila)->valor == 1)) {
+                    playMoveCards(fila, columna, destino);
+                }
+            }
+        }
+    } else {
+        printf("La columna origne y destino deben ser diferentes ");
+    }
+}
+
+void Game::playMoveCards(int fila, int columna, int destino) {
+    if (c.listas[columna].getByIndex(fila) != nullptr) {
+        if (c.listas[columna].getByIndex(fila)->bolteada) {
+            //se guardan temporalmente las cartas
+            Pila pilaAuxi;
+            while (fila < c.listas[columna].size) {
+                Carta *cartaAuxi = c.listas[columna].quitEnd();
+                pilaAuxi.push(cartaAuxi);
+            }
+            //se mueven las cartas
+            while (!pilaAuxi.esVacia()) {
+                Carta *cartaAuxi = pilaAuxi.pop();
+                c.listas[destino].addFinal(cartaAuxi);
+            }
+        }
+    }
+}
+
+bool Game::youWin() {
+    for (int i = 0; i < COLUMNAS; ++i) {
+        if (!c.listas[i].isEmpity()) {
+            return false;
+        }
+    }
+    return true;
+}
+
 void Game::menu() {
     int opcion = 0;
 
     do {
-        printf("OPCIONES DE JUEGO:\n");
+        printf("OPCIONES DE MOVIMIENTO:\n");
         printf("1. Ver carta\n");
         printf("2. Mover carta\n");
         printf("3. Mover cartas (de filas de cartas a AZ's)\n");
-        printf("4. Mover carta a AZ's (lista a AZ's)\n");
-        printf("5. Mover de cola a AZ's (cola de cartas a AZ's)\n");
-        printf("6. Mover carta de la cola a lista de cartas (cola a listas)\n");
+        printf("4. Lista de carta a AZ's (lista a AZ's)\n");
+        printf("5. De cola de cartas a AZ's (cola de cartas a AZ's)\n");
+        printf("6. De cola de cartas a lista de cartas (cola a listas)\n");
         printf("7. Salir del juego\n");
         scanf("%d", &opcion);
         std::cout << "opcion " << opcion << std::endl;
@@ -212,6 +271,7 @@ void Game::menu() {
             moverCarta();
             printGame();
         } else if (opcion == 3) {
+            moverCartas();
             printGame();
         } else if (opcion == 4) {
             moveCardToAZs();
@@ -225,6 +285,6 @@ void Game::menu() {
         } else if (opcion == 7) {
             std::exit(0);
         }
-    } while (opcion > 0 && opcion < 8);
+    } while ((opcion > 0 && opcion < 8) || !youWin());
 
 }

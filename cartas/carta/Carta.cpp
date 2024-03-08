@@ -7,7 +7,7 @@
 std::string Carta::getPrint() {
     std::string auxi = "";
     if (valor < 10 || valor > 10) {
-        auxi = valorString + simbolo + color;
+        auxi = " "+valorString + simbolo + color;
     } else {
         auxi = valorString + simbolo + color;
     }
