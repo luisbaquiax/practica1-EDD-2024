@@ -108,20 +108,17 @@ void ControlCartas::addCardsToCola() {
 }
 
 void ControlCartas::addCartasToListas() {
-    printf("agregando a la lista\n");
-    cartasAleatorias[27] = new Carta("R", AZ_CORAZON, "1", 1, 0, true);
+    //printf("agregando a la lista\n");
+   /* cartasAleatorias[27] = new Carta("R", AZ_CORAZON, "1", 1, 0, true);
     cartasAleatorias[26] = new Carta("N", TREBOL_NEGRO, "2", 2, 0, true);
     cartasAleatorias[25] = new Carta("R", CORAZON_ROJO, "3", 3, 0, true);
     cartasAleatorias[24] = new Carta("N", TREBOL_NEGRO, "4", 4, 0, true);
-
+    listas[1].addFinal(*&cartasAleatorias[27]);*/
 
     listas[0].addFinal(*&cartasAleatorias[24]);
 
     listas[1].addFinal(*&cartasAleatorias[25]);
     listas[1].addFinal(*&cartasAleatorias[26]);
-    //prueba
-    listas[1].addFinal(*&cartasAleatorias[27]);
-    //prueba
 
     listas[2].addFinal(*&cartasAleatorias[27]);
     listas[2].addFinal(*&cartasAleatorias[28]);

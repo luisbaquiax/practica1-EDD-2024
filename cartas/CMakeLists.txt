@@ -18,6 +18,8 @@ add_executable(cartas main.cpp
         lista/ListaDoble.h
         game/Game.cpp
         game/Game.h
-        Movimiento/Movimiento.cpp
-        Movimiento/Movimiento.h
+        movimiento/Movimiento.cpp
+        movimiento/Movimiento.h
+        movimiento/ListMovment.cpp
+        movimiento/ListMovment.h
 )

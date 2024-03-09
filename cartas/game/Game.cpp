@@ -28,6 +28,11 @@ void Game::verCarta() {
         //Carta *nuevo = new Carta(temp->color, temp->simbolo, temp->valorString, temp->valor, temp->id,
         //                       temp->bolteada);
         c.cola2.push(temp);
+        Movimiento *movimiento = new Movimiento();
+        movimiento->tipo = 1;
+        movimiento->setCarta(temp);
+        movimiento->setNumeroCola(1);
+        listMovment.addFinal(movimiento);
     } else {
         if (!c.cola2.isEmpity()) {
             //preguntar si se quiere reiniciar las colas
@@ -249,42 +254,123 @@ bool Game::youWin() {
     return true;
 }
 
+void Game::returnMovement() {
+    if (listMovment.size == 1) {
+        if (listMovment.getEnd()->tipo == 1) {
+            Carta *carta = listMovment.getEnd()->carta;
+            c.cola2.pop();
+            c.cola1.push(carta);
+        } else if (listMovment.getEnd()->tipo == 2) {
+
+        } else if (listMovment.getEnd()->tipo == 3) {
+
+        }
+    } else {
+
+    }
+}
+
+void Game::advanceMovement() {
+    printf("Lo sentimos la funcioanlidad aun se encuentra en desarrollo.\n");
+}
+
+void Game::viewNextCard() {
+    int row;
+    int col;
+    printf("Ingresa la fila y columna de la carta para ver su siguiente (Eje: 0 1):\n");
+    scanf("%d %d", &row, &col);
+    if (c.listas[col].getByIndex(row) != nullptr) {
+        if (c.listas[col].getByIndex(row)->siguiente != nullptr) {
+            /* std::cout << "La siguiente carta de "
+                       << c.listas[col].getByIndex(row)->getPrint()
+                       << " es " + c.listas[col].getByIndex(row)->siguiente->getPrint()
+                       << std::endl;*/
+            c.listas[col].getByIndex(row)->bolteada = true;
+            c.listas[col].getByIndex(row)->siguiente->bolteada = true;
+            printGame();
+            c.listas[col].getByIndex(row)->bolteada = false;
+            c.listas[col].getByIndex(row)->siguiente->bolteada = false;
+        } else {
+            printf(" La carta elegida no tiene siguiente\n");
+        }
+    }
+}
+
+void Game::viewPrevious() {
+    int row;
+    int col;
+    printf("Ingresa la fila y columna de la carta para ver su anterior (Eje: 0 1):\n");
+    scanf("%d %d", &row, &col);
+    if (c.listas[col].getByIndex(row) != nullptr) {
+        if (c.listas[col].getByIndex(row)->anterior != nullptr) {
+            /*std::cout << "La anterior carta de "
+                      << c.listas[col].getByIndex(row)->getPrint()
+                      << " es " + c.listas[col].getByIndex(row)->anterior->getPrint()
+                      << std::endl;*/
+            c.listas[col].getByIndex(row)->bolteada = true;
+            c.listas[col].getByIndex(row)->anterior->bolteada = true;
+            printGame();
+            c.listas[col].getByIndex(row)->bolteada = false;
+            c.listas[col].getByIndex(row)->anterior->bolteada = false;
+        } else {
+            printf(" La carta elegida no tiene carta anterior\n");
+        }
+    }
+}
+
 void Game::menu() {
     int opcion = 0;
 
     do {
         printf("OPCIONES DE MOVIMIENTO:\n");
-        printf("1. Ver carta\n");
-        printf("2. Mover carta\n");
-        printf("3. Mover cartas (de filas de cartas a AZ's)\n");
-        printf("4. Lista de carta a AZ's (lista a AZ's)\n");
-        printf("5. De cola de cartas a AZ's (cola de cartas a AZ's)\n");
-        printf("6. De cola de cartas a lista de cartas (cola a listas)\n");
-        printf("7. Salir del juego\n");
+        printf("1. Ver carta siguiente de una carta.      ");
+        printf("2. Ver carta anterior de una carta.      ");
+        printf("3. Ver carta\n");
+        printf("4. Mover carta\n");
+        printf("5. Mover cartas (de filas de cartas a AZ's)\n");
+        printf("6. Lista de carta a AZ's (lista a AZ's)\n");
+        printf("7. De cola de cartas a AZ's (cola de cartas a AZ's)\n");
+        printf("8. De cola de cartas a lista de cartas (cola a listas)\n");
+        printf("9. Regresar movimiento       10. Adelantar movimiento.\n");
+        printf("11. Salir del juego\n");
         scanf("%d", &opcion);
-        std::cout << "opcion " << opcion << std::endl;
 
-        if (opcion == 1) {
+        if (opcion == 3) {
             verCarta();
             printGame();
-        } else if (opcion == 2) {
-            moverCarta();
+        } else if (opcion == 1) {
+            viewNextCard();
             printGame();
-        } else if (opcion == 3) {
-            moverCartas();
+        } else if (opcion == 2) {
+            viewPrevious();
             printGame();
         } else if (opcion == 4) {
-            moveCardToAZs();
+            moverCarta();
             printGame();
         } else if (opcion == 5) {
-            c.moveCardToAzWhitCola();
+            moverCartas();
             printGame();
         } else if (opcion == 6) {
-            moveCardFromColaToList();
+            moveCardToAZs();
             printGame();
         } else if (opcion == 7) {
+            c.moveCardToAzWhitCola();
+            printGame();
+        } else if (opcion == 8) {
+            moveCardFromColaToList();
+            printGame();
+        } else if (opcion == 9) {
+            returnMovement();
+            printGame();
+        } else if (opcion == 10) {
+            advanceMovement();
+            printGame();
+        } else if (opcion == 11) {
             std::exit(0);
         }
-    } while ((opcion > 0 && opcion < 8) || !youWin());
 
+    } while ((opcion > 0 && opcion < 12) || !youWin());
+    if (youWin()) {
+        printf("Has ganado, felicicades!!!");
+    }
 }

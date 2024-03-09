@@ -6,11 +6,14 @@
 #define CARTAS_GAME_H
 
 #include "../control-cartas/ControlCartas.h"
+#include "../movimiento/Movimiento.h"
+#include "../movimiento/ListMovment.h"
 
 class Game {
 public:
     ControlCartas c;
 
+    ListMovment listMovment;
     void jugar();
 
     void verCarta();
@@ -37,6 +40,13 @@ public:
 
     bool youWin();
 
+    void advanceMovement();
+
+    void returnMovement();
+
+    void viewNextCard();
+
+    void viewPrevious();
 };
 
 
