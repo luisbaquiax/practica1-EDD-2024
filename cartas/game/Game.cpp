@@ -254,8 +254,8 @@ bool Game::youWin() {
     return true;
 }
 
-void Game::returnMovement() {
-    if (listMovment.size == 1) {
+void Game::returnMovement() {º
+    if (!listMovment.isEmpity())     {
         if (listMovment.getEnd()->tipo == 1) {
             Carta *carta = listMovment.getEnd()->carta;
             c.cola2.pop();
@@ -265,8 +265,6 @@ void Game::returnMovement() {
         } else if (listMovment.getEnd()->tipo == 3) {
 
         }
-    } else {
-
     }
 }
 
