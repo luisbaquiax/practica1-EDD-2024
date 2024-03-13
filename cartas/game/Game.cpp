@@ -254,12 +254,12 @@ bool Game::youWin() {
     return true;
 }
 
-void Game::returnMovement() {º
+void Game::returnMovement() {
     if (!listMovment.isEmpity())     {
         if (listMovment.getEnd()->tipo == 1) {
             Carta *carta = listMovment.getEnd()->carta;
-            c.cola2.pop();
-            c.cola1.push(carta);
+            c.cola2.popEnd();
+            c.cola1.pushFirst(carta);
         } else if (listMovment.getEnd()->tipo == 2) {
 
         } else if (listMovment.getEnd()->tipo == 3) {
@@ -269,7 +269,7 @@ void Game::returnMovement() {º
 }
 
 void Game::advanceMovement() {
-    printf("Lo sentimos la funcioanlidad aun se encuentra en desarrollo.\n");
+    printf("Lo sentimos la funcionalidad aun se encuentra en desarrollo.\n");
 }
 
 void Game::viewNextCard() {
@@ -279,10 +279,6 @@ void Game::viewNextCard() {
     scanf("%d %d", &row, &col);
     if (c.listas[col].getByIndex(row) != nullptr) {
         if (c.listas[col].getByIndex(row)->siguiente != nullptr) {
-            /* std::cout << "La siguiente carta de "
-                       << c.listas[col].getByIndex(row)->getPrint()
-                       << " es " + c.listas[col].getByIndex(row)->siguiente->getPrint()
-                       << std::endl;*/
             c.listas[col].getByIndex(row)->bolteada = true;
             c.listas[col].getByIndex(row)->siguiente->bolteada = true;
             printGame();
@@ -301,10 +297,6 @@ void Game::viewPrevious() {
     scanf("%d %d", &row, &col);
     if (c.listas[col].getByIndex(row) != nullptr) {
         if (c.listas[col].getByIndex(row)->anterior != nullptr) {
-            /*std::cout << "La anterior carta de "
-                      << c.listas[col].getByIndex(row)->getPrint()
-                      << " es " + c.listas[col].getByIndex(row)->anterior->getPrint()
-                      << std::endl;*/
             c.listas[col].getByIndex(row)->bolteada = true;
             c.listas[col].getByIndex(row)->anterior->bolteada = true;
             printGame();

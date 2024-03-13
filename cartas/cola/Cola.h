@@ -17,6 +17,8 @@ public:
 
     void push(Carta *&carta);
 
+    void pushFirst(Carta *&carta);
+
     Carta *pop();
 
     Carta *popEnd();

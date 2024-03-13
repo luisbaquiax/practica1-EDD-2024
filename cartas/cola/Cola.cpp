@@ -19,6 +19,19 @@ void Cola::push(Carta *&carta) {
     }
 }
 
+void Cola::pushFirst(Carta *&carta) {
+    Carta *nuevo = new Carta(carta->color, carta->simbolo, carta->valorString, carta->valor, carta->id,
+                             carta->bolteada);
+    //Carta *nuevo = carta;
+    if (isEmpity()) {
+        first = nuevo;
+        end = nuevo;
+    } else {
+       nuevo->siguiente= first;
+       first = nuevo;
+    }
+}
+
 Carta *Cola::pop() {
     if (!isEmpity()) {
         Carta *temp = first;
